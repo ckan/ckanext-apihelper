@@ -21,4 +21,4 @@ class APIHelperPluginClass(p.SingletonPlugin):
 class APIHelperController(p.toolkit.BaseController):
 
     def view(self):
-        return 'meh'
+        return p.toolkit.render('apihelper/index.html')
