@@ -1,1 +1,36 @@
 {% extends 'page.html' %}
+{%- block subtitle %}API Helper{% endblock -%}
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('API Helper'), controller='ckanext.apihelper.plugin:APIHelperController', action='get' %}</li>
+{% endblock %}
+
+
+{% block content_primary_nav %}
+{{ h.build_nav_icon('apihelper_get', _('Get')) }}
+{{ h.build_nav_icon('apihelper_create', _('Create')) }}
+{{ h.build_nav_icon('apihelper_update', _('Update')) }}
+{{ h.build_nav_icon('apihelper_delete', _('Delete')) }}
+{% endblock %}
+{% block primary_content_inner %}
+  <article class="module">
+    <div class="module-content">
+      {% block about %}
+        {% if g.site_about %}
+          {{ h.render_markdown(g.site_about) }}
+        {% else %}
+          <h1 class="page-heading">{{ _('About') }}</h1>
+          {% snippet 'home/snippets/about_text.html' %}
+        {% endif %}
+      {% endblock %}
+    </div>
+  </article>
+{% endblock %}
+{% block secondary %}
+  <section class="module module-narrow">
+    <div class="module context-info">
+      <div class="module-content">
+        <h1 class="heading">Bleh</h1>
+      </div>
+    </div>
+  </section>
+{% endblock %}
