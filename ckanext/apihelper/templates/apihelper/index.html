@@ -20,20 +20,20 @@
         <div class="control-group">
           <label class="control-label" for="field-actions">{{ _("Actions") }}</label>
           <div class="controls">
-            <select id="field-actions" name="actions" data-module="autocomplete">
+            <select id="field-actions" name="actions" data-module="autocomplete apihelper">
               {% for action, help in h.apihelper_action_list().iteritems() %}
               <option value="{{ action }}">{{ action }}</option>
               {% endfor %}
             </select>
           </div>
         </div>
-        <div>
-          <code id="apihelper-help"></code>
+        <div id="apihelper-help">
         </div>
       {% endblock %}
       </form>
     </div>
   </article>
+{% resource 'ckanext-apihelper/scripts/apihelper.js' %}
 {% endblock %}
 
 {% block secondary %}
@@ -49,7 +49,7 @@
 
 {%- block scripts %}
 <script>
-  var action = {{ h.dump_json(h.apihelper_action_list()) | safe }};
+  var action_help = {{ h.dump_json(h.apihelper_action_list()) | safe }};
 </script>
 {{ super() }}
 {% endblock -%}
