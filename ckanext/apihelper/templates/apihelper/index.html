@@ -14,17 +14,28 @@
 {% block primary_content_inner %}
   <article class="module">
     <div class="module-content">
-      {% block about %}
-        {% if g.site_about %}
-          {{ h.render_markdown(g.site_about) }}
-        {% else %}
-          <h1 class="page-heading">{{ _('About') }}</h1>
-          {% snippet 'home/snippets/about_text.html' %}
-        {% endif %}
+      <form class="dataset-form form-horizontal" method="post" action="{{ action }}" data-module="basic-form">
+      {% block action_form %}
+        <h1 class="page-heading">{{ _('GET API') }}</h1>
+        <div class="control-group">
+          <label class="control-label" for="field-actions">{{ _("Actions") }}</label>
+          <div class="controls">
+            <select id="field-actions" name="actions" data-module="autocomplete">
+              {% for action, help in h.apihelper_action_list().iteritems() %}
+              <option value="{{ action }}">{{ action }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div>
+          <code id="apihelper-help"></code>
+        </div>
       {% endblock %}
+      </form>
     </div>
   </article>
 {% endblock %}
+
 {% block secondary %}
   <section class="module module-narrow">
     <div class="module context-info">
@@ -34,3 +45,11 @@
     </div>
   </section>
 {% endblock %}
+
+
+{%- block scripts %}
+<script>
+  var action = {{ h.dump_json(h.apihelper_action_list()) | safe }};
+</script>
+{{ super() }}
+{% endblock -%}

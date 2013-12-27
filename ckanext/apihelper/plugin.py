@@ -1,15 +1,36 @@
+import logging
 import routes.mapper
 import ckan.plugins as p
+import extract
+
+
+log = logging.getLogger('ckanext_apihelper')
 
 
 class APIHelperPluginClass(p.SingletonPlugin):
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IRoutes, inherit=True)
+    p.implements(p.ITemplateHelpers, inherit=True)
 
+    actions = None
+
+    def _get_actions(self):
+        if self.actions is None:
+            self.actions = extract.extract_actions()
+        return self.actions
+
+    def api_action_list(self, action_type='get'):
+        api_actions = self._get_actions()
+        if action_type is not None:
+            return api_actions.get(action_type, {})
+        return api_actions
+
+    #IConfigurer
     def update_config(self, config):
         p.toolkit.add_template_directory(config, 'templates')
         p.toolkit.add_public_directory(config, 'public')
 
+    #IRoutes
     def after_map(self, map):
         map.redirect('/apihelper', '/apihelper/get')
         map.redirect('/apihelper/', '/apihelper/get')
@@ -20,6 +41,13 @@ class APIHelperPluginClass(p.SingletonPlugin):
             m.connect('apihelper_update', '/apihelper/update', action='update')
             m.connect('apihelper_delete', '/apihelper/delete', action='delete')
         return map
+
+    #ITemplateHelpers
+    def get_helpers(self):
+        helpers = {
+                'apihelper_action_list': self.api_action_list,
+        }
+        return helpers
 
 
 class APIHelperController(p.toolkit.BaseController):

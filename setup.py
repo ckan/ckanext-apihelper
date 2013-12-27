@@ -26,7 +26,5 @@ setup(
         [ckan.plugins]
         # Add plugins here, e.g.
         apihelper=ckanext.apihelper.plugin:APIHelperPluginClass
-        [paste.paster_command]
-        extract_actions = ckanext.apihelper.commands:ActionExtractor
     ''',
 )
