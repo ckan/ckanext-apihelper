@@ -10,7 +10,7 @@ ckan.module('apihelper', function (jQuery, _) {
       if(-1 <= $.inArray(e.val, action_help)) {
         help_text = action_help[e.val];
       }
-      // some basic formatting
+      // get the newlines converted properly
       help_text = help_text.replace(/\n/g, '<br />')
       helparea.html(help_text);
     },

@@ -1,5 +1,12 @@
 {% extends 'page.html' %}
+
 {%- block subtitle %}API Helper{% endblock -%}
+
+{%- block styles %}
+{{ super() }}
+{% resource 'ckanext-apihelper/css/apihelper.css' %}
+{% endblock -%}
+
 {% block breadcrumb_content %}
   <li class="active">{% link_for _('API Helper'), controller='ckanext.apihelper.plugin:APIHelperController', action='get' %}</li>
 {% endblock %}
@@ -11,6 +18,7 @@
 {{ h.build_nav_icon('apihelper_update', _('Update')) }}
 {{ h.build_nav_icon('apihelper_delete', _('Delete')) }}
 {% endblock %}
+
 {% block primary_content_inner %}
   <article class="module">
     <div class="module-content">
