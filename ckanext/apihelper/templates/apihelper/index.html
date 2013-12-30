@@ -26,11 +26,22 @@
       {% block action_form %}
       <form class="dataset-form form-horizontal" method="get">
         <h1 class="page-heading">{{ action | upper }} API</h1>
+        {# Select action #}
         {{ h.snippet('apihelper/snippets/form_action_list.html', action=action) }}
+
+        {# Documentation #}
         <div id="apihelper-help">Select an endpoint to see it's documentation.</div>
-        {# TODO: Area to give form parameters  #}
+
+        {# Area to give form parameters
+        {% block apihelper_get_params %}
+        {{ h.snippet('snippets/custom_form_fields.html', errors={}, limit=3) }}
+        {% endblock %} #}
+
+        {# Submit button #}
+        <button class="btn" name="save" data-module="apihelper-submit" value="finish">Submit</button>
+
         {# TODO: Area to show API ouput #}
-        {# TODO: Submit button #}
+        <pre id="apihelper-output"></pre>
       </form>
       {% endblock %}
     </div>
