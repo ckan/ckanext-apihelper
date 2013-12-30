@@ -34,11 +34,15 @@
 
         {# Area to give form parameters #}
         {% block apihelper_get_params %}
-        {{ h.snippet('snippets/custom_form_fields.html', errors={}, limit=3) }}
+        {% if action == 'get' %}
+        {{ h.snippet('apihelper/snippets/form_get_params.html') }}
+        {% else %}
+        {{ h.snippet('apihelper/snippets/form_post_params.html') }}
+        {% endif %}
         {% endblock %}
 
         {# Submit button #}
-        <button class="btn" name="save" data-module="apihelper-submit" value="finish">Submit</button>
+        <button class="btn" name="save" data-module-action="{{ action }}" data-module="apihelper-submit" value="finish">Submit</button>
 
         {# TODO: Area to show API ouput #}
         <pre id="apihelper-output" class="invisible"></pre>
