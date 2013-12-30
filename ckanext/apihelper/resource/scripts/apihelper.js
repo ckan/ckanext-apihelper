@@ -25,12 +25,38 @@ ckan.module('apihelper-submit', function (jQuery, _) {
       e.preventDefault();
       var action = $('#field-actions option:selected')[0].value;
       var output = '';
+      var next = false;
+      var param_count = 0;
+      var param_key_sel = '';
+      var param_val_sel = '';
+      var param_key = '';
+      var param_val = '';
+      var param_string = '?'
       if(action_help[action] === undefined) {
         return
       }
-      var r = $.get(ckan.SITE_ROOT + '/api/3/action/' + action, function(data) {
+
+      do {
+        param_key_sel = '#field-extras-' + param_count + '-key';
+        param_val_sel = '#field-extras-' + param_count + '-value';
+        param_key = $(param_key_sel).val()
+        param_val = $(param_val_sel).val()
+        if (param_key === undefined || param_val === undefined) {
+          next = false;
+          break;
+        }
+        if (param_key !== '' && param_val !== '') {
+          param_string += param_key + '=' + param_val + '&';
+        }
+        param_count++
+      } while (next === true);
+
+
+      console.log(ckan.SITE_ROOT + '/api/3/action/' + action + param_string);
+      var r = $.get(ckan.SITE_ROOT + '/api/3/action/' + action + param_string, function(data) {
         var output_area = $('#apihelper-output');
-        output_area.text(JSON.stringify(data, null, "\t"));
+        output_area.removeClass('invisible');
+        output_area.text(JSON.stringify(data, null, "    "));
       });
       r.fail(function(data) {
         console.log('failed with %o', data);

@@ -1,3 +1,6 @@
 #apihelper-help {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
+#apihelper-output {
+    overflow-x: scroll;
+}

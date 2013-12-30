@@ -32,16 +32,16 @@
         {# Documentation #}
         <div id="apihelper-help">Select an endpoint to see it's documentation.</div>
 
-        {# Area to give form parameters
+        {# Area to give form parameters #}
         {% block apihelper_get_params %}
         {{ h.snippet('snippets/custom_form_fields.html', errors={}, limit=3) }}
-        {% endblock %} #}
+        {% endblock %}
 
         {# Submit button #}
         <button class="btn" name="save" data-module="apihelper-submit" value="finish">Submit</button>
 
         {# TODO: Area to show API ouput #}
-        <pre id="apihelper-output"></pre>
+        <pre id="apihelper-output" class="invisible"></pre>
       </form>
       {% endblock %}
     </div>
