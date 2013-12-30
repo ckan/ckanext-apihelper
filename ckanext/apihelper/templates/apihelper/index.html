@@ -1,4 +1,5 @@
 {% extends 'page.html' %}
+{% set action = c.action %}
 
 {%- block subtitle %}API Helper{% endblock -%}
 
@@ -22,23 +23,16 @@
 {% block primary_content_inner %}
   <article class="module">
     <div class="module-content">
-      <form class="dataset-form form-horizontal" method="post" action="{{ action }}" data-module="basic-form">
       {% block action_form %}
-        <h1 class="page-heading">{{ _('GET API') }}</h1>
-        <div class="control-group">
-          <label class="control-label" for="field-actions">{{ _("Actions") }}</label>
-          <div class="controls">
-            <select id="field-actions" name="actions" data-module="autocomplete apihelper">
-              {% for action, help in h.apihelper_action_list().iteritems() %}
-              <option value="{{ action }}">{{ action }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-        <div id="apihelper-help">
-        </div>
-      {% endblock %}
+      <form class="dataset-form form-horizontal" method="get">
+        <h1 class="page-heading">{{ action | upper }} API</h1>
+        {{ h.snippet('apihelper/snippets/form_action_list.html', action=action) }}
+        <div id="apihelper-help">Select an endpoint to see it's documentation.</div>
+        {# TODO: Area to give form parameters  #}
+        {# TODO: Area to show API ouput #}
+        {# TODO: Submit button #}
       </form>
+      {% endblock %}
     </div>
   </article>
 {% resource 'ckanext-apihelper/scripts/apihelper.js' %}
@@ -48,7 +42,9 @@
   <section class="module module-narrow">
     <div class="module context-info">
       <div class="module-content">
-        <h1 class="heading">Bleh</h1>
+        <h1 class="heading">API Helper</h1>
+        <p>The API Helper shows the documentation for publically accessible API
+        endpoints and allows you make API calls in a friendly interface.</p>
       </div>
     </div>
   </section>
@@ -57,7 +53,7 @@
 
 {%- block scripts %}
 <script>
-  var action_help = {{ h.dump_json(h.apihelper_action_list()) | safe }};
+  var action_help = {{ h.dump_json(h.apihelper_action_list(action)) | safe }};
 </script>
 {{ super() }}
 {% endblock -%}
