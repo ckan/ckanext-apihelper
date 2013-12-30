@@ -1,0 +1,12 @@
+<div class="control-group">
+  <label class="control-label" for="field-actions">{{ _("Actions") }}</label>
+  <div class="controls">
+    <select id="field-actions" name="actions" data-module="autocomplete apihelper">
+      <option value="">Select an action</option>
+      {% for a in h.apihelper_action_list(action) %}
+      <option value="{{ a }}">{{ a }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
