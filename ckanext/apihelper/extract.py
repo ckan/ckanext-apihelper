@@ -63,13 +63,3 @@ def extract_actions():
                     actions[action_module_name][k] = get_doc(k)
     #TODO: Deal with plugins as well
     return actions
-    #here = os.path.abspath(os.path.dirname(__file__))
-    #apihelper = os.path.join(here, 'public', 'apihelper', 'actions.json')
-    #log.info('Writing JSON to {0}'.format(apihelper))
-    #try:
-        #with open(apihelper, 'w') as actions_json:
-            #json.dump(actions, actions_json)
-        #log.info('actions.json created successfully '
-                 #'in {0}'.format(apihelper))
-    #except Exception as e:
-        #log.error("Houston, we have a problem", exc_info=1)
