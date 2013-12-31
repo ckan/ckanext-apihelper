@@ -1,1 +1,12 @@
-{{ h.snippet('snippets/custom_form_fields.html', errors={}, limit=3) }}
+{% import 'macros/form.html' as form %}
+<div data-module="custom-fields">
+  {% for param in range(3) %}
+    {% set index = loop.index0 %}
+    {% set prefix = 'params__%d__' % index %}
+    {{ form.custom(
+      names=(prefix ~ 'key', prefix ~ 'value'),
+      id='field-params-%d' % index,
+      label=_('Parameters'),
+    ) }}
+  {% endfor %}
+</div>

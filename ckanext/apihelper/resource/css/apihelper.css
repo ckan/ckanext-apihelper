@@ -1,6 +1,14 @@
 #apihelper-help {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 #apihelper-output {
-    overflow-x: scroll;
+  margin-top: 20px;
+  overflow-x: scroll;
+}
+.apihelper-fail {
+  color: #B94A48;
+  background-color: #EED3D7;
 }

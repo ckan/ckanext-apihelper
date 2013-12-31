@@ -1,9 +1,10 @@
 ckan.module('apihelper', function (jQuery, _) {
   return {
     initialize: function () {
-      this.el.change(this.change);
+      $.proxyAll(this, /_on/);
+      this.el.change(this._onChange);
     },
-    change: function (e) {
+    _onChange: function (e) {
       var helparea = $('#apihelper-help');
       var help_text = "Select an endpoint to see it's documentation.";
       // get element only if it exists
@@ -44,8 +45,8 @@ ckan.module('apihelper-submit', function (jQuery, _) {
       var param_val = '';
       var param_string = '?'
       do {
-        param_key_sel = '#field-extras-' + param_count + '-key';
-        param_val_sel = '#field-extras-' + param_count + '-value';
+        param_key_sel = '#field-params-' + param_count + '-key';
+        param_val_sel = '#field-params-' + param_count + '-value';
         param_key = $(param_key_sel).val();
         param_val = $(param_val_sel).val();
         if (param_key === undefined || param_val === undefined) {
@@ -57,29 +58,24 @@ ckan.module('apihelper-submit', function (jQuery, _) {
         }
         param_count++
       } while (next === true);
-      var r = $.get(ckan.SITE_ROOT + '/api/3/action/' + action + param_string, function(data) {
-        var output_area = $('#apihelper-output');
-        output_area.removeClass('invisible');
-        output_area.text(JSON.stringify(data, null, "    "));
-      });
-      r.fail(function(data) {
-        console.log('failed with %o', data);
-      });
+      var r = $.get(ckan.SITE_ROOT + '/api/3/action/' + action + param_string, this._responseSuccess);
+      r.fail(this._responseFailure);
     },
     _postAction: function (action) {
       var postData = $('#apihelper-data').val();
-      var r = $.post(ckan.SITE_ROOT + '/api/3/action/' + action, postData, function(data) {
-        console.log(data)
-        var output_area = $('#apihelper-output');
-        output_area.removeClass('invisible');
-        output_area.text(JSON.stringify(data, null, "    "));
-      });
-      r.fail(function(data) {
-        console.log('failed with %o', data);
-        var output_area = $('#apihelper-output');
-        output_area.removeClass('invisible');
-        output_area.text(JSON.stringify(data, null, "    "));
-      });
+      var r = $.post(ckan.SITE_ROOT + '/api/3/action/' + action, postData, this._responseSuccess);
+      r.fail(this._responseFailure);
     },
-  };
+    _responseSuccess: function(data) {
+        var output_area = $('#apihelper-output');
+        output_area.removeClass('apihelper-fail');
+        output_area.removeClass('invisible');
+        output_area.text(JSON.stringify(data, null, "    "));
+    },
+    _responseFailure: function(data) {
+        var output_area = $('#apihelper-output');
+        output_area.addClass('apihelper-fail');
+        output_area.removeClass('invisible');
+        output_area.text(JSON.stringify(data, null, "    "));
+  }
 });
