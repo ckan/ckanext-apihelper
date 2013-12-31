@@ -6,9 +6,13 @@
 }
 #apihelper-output {
   margin-top: 20px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .apihelper-fail {
   color: #B94A48;
   background-color: #EED3D7;
+}
+.apihelper-success {
+  color: #3C763D;
+  background-color: #DFF0D8;
 }

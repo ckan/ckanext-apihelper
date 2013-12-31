@@ -68,14 +68,15 @@ ckan.module('apihelper-submit', function (jQuery, _) {
     },
     _responseSuccess: function(data) {
         var output_area = $('#apihelper-output');
-        output_area.removeClass('apihelper-fail');
-        output_area.removeClass('invisible');
+        output_area.removeClass('invisible apihelper-fail');
+        output_area.addClass('apihelper-success');
         output_area.text(JSON.stringify(data, null, "    "));
     },
     _responseFailure: function(data) {
         var output_area = $('#apihelper-output');
+        output_area.removeClass('invisible apihelper-success');
         output_area.addClass('apihelper-fail');
-        output_area.removeClass('invisible');
         output_area.text(JSON.stringify(data, null, "    "));
-  }
+    },
+  };
 });
