@@ -3,7 +3,7 @@
   <div class="controls">
     <select id="field-actions" name="actions" data-module="autocomplete apihelper">
       <option value="">Select an action</option>
-      {% for a in h.apihelper_action_list(action) %}
+      {% for a, d in h.apihelper_action_list(action) | dictsort %}
       <option value="{{ a }}">{{ a }}</option>
       {% endfor %}
     </select>
