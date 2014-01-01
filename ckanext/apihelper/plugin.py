@@ -3,7 +3,6 @@ import routes.mapper
 import ckan.plugins as p
 import extract
 
-
 log = logging.getLogger('ckanext_apihelper')
 
 
@@ -27,6 +26,7 @@ class APIHelperPluginClass(p.SingletonPlugin):
 
     #IConfigurer
     def update_config(self, config):
+        p.toolkit.requires_ckan_version(min_version='2.1.1')
         p.toolkit.add_template_directory(config, 'templates')
         p.toolkit.add_resource('resource', 'ckanext-apihelper')
 
