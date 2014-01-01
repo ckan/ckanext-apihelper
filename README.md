@@ -1,6 +1,5 @@
 # ckanext-apihelper
 
-This extension is meant to add a few pages that will add a friendly interface
-to talk to the action API.
+This extension displays the action and it's help text and offers a friendly
+interface to talk to the action API.
 
-**WORK IN PROGRESS**
