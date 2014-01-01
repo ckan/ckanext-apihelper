@@ -61,5 +61,4 @@ def extract_actions():
                              or hasattr(v, '__replaced'))):
                     k = new_authz.clean_action_name(k)
                     actions[action_module_name][k] = get_doc(k)
-    #TODO: Deal with plugins as well
     return actions
