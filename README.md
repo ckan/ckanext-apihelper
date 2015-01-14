@@ -14,8 +14,11 @@ for the action API.
 
 With your CKAN virtual environment activated:
 
-````
-pip install -e  git+https://github.com/ckan/ckanext-apihelper.git#egg=ckanext-apihelper:/usr/lib/ckan/default/src# pip install -e  git+https://github.com/ckan/ckanext-apihelper.git#egg=ckanext-apihelper
-````
+  pip install -e  git+https://github.com/ckan/ckanext-apihelper.git#egg=ckanext-apihelper
+
+And add the following to your ckan.ini:
+
+  ckan.plugins = ... apihelper
+
 
 And then, add the plugin to to the ckan.plugins setting in your CKAN config file.
