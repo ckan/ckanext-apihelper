@@ -3,7 +3,7 @@
 This extension is meant to add a few pages that will serve as a friendly interface
 for the action API. 
 
-* Requires CKAN Version 2.1.1 or higher.
+**Requires CKAN Version 2.1.1 or higher.**
 
 
 <p align="center">
