@@ -2,7 +2,6 @@ import os
 import json
 import logging
 import ckan.plugins as p
-import ckan.new_authz as new_authz
 
 
 log = logging.getLogger('ckanext_apihelper')
@@ -59,6 +58,5 @@ def extract_actions():
                 if (hasattr(v, '__call__')
                         and (v.__module__ == module_path
                              or hasattr(v, '__replaced'))):
-                    k = new_authz.clean_action_name(k)
                     actions[action_module_name][k] = get_doc(k)
     return actions
